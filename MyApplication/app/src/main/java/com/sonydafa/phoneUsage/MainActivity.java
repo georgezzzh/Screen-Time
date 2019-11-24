@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -20,6 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
     private FragmentTransaction transaction;
     private FragmentManager fragmentManager;
+    Fragment []fragments;
     //设置碎片化界面
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -29,17 +31,26 @@ public class MainActivity extends AppCompatActivity {
             transaction = fragmentManager.beginTransaction();
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    transaction.replace(R.id.container, new Page1Fragment(getApplicationContext()));
+                    //transaction.replace(R.id.container, new Page1Fragment(getApplicationContext()));
+                    transaction.hide(fragments[1]);
+                    transaction.hide(fragments[2]);
+                    transaction.show(fragments[0]);
                     transaction.commit();
                     Log.i("demo","page1");
                     return true;
                 case R.id.navigation_dashboard:
-                    transaction.replace(R.id.container, new Page2Fragment());
+                    //transaction.replace(R.id.container, new Page2Fragment());
+                    transaction.hide(fragments[0]);
+                    transaction.hide(fragments[2]);
+                    transaction.show(fragments[1]);
                     transaction.commit();
                     Log.i("demo","page2");
                     return true;
                 case R.id.navigation_notifications:
-                    transaction.replace(R.id.container, new Page3Fragment());
+                    transaction.hide(fragments[0]);
+                    transaction.hide(fragments[1]);
+                    transaction.show(fragments[2]);
+                    //transaction.replace(R.id.container, new Page3Fragment());
                     transaction.commit();
                     Log.i("demo","page3");
                     return true;
@@ -51,7 +62,22 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
         Context applicationContext = getApplicationContext();
-        transaction.replace(R.id.container, new Page1Fragment(applicationContext)).commit();
+        Page1Fragment page1 = new Page1Fragment(getApplicationContext());
+        Page2Fragment page2=new Page2Fragment();
+        Page3Fragment page3=new Page3Fragment();
+        fragments=new Fragment[3];
+        fragments[0]=page1;
+        fragments[1]=page2;
+        fragments[2]=page3;
+        //舒适化页面，将1,2,3都添加进去,但是只show(1)，hide(2),hide(3)，此后
+        transaction.add(R.id.container,fragments[0]);
+        transaction.add(R.id.container,fragments[1]);
+        transaction.hide(fragments[1]);
+        transaction.add(R.id.container,fragments[2]);
+        transaction.hide(fragments[2]);
+        transaction.show(fragments[0]);
+        transaction.commit();
+        //transaction.replace(R.id.container, new Page1Fragment(applicationContext)).commit();
         Log.i("demo","初始化页面完成");
     }
     @Override
@@ -59,11 +85,13 @@ public class MainActivity extends AppCompatActivity {
         //进行菜单管理
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setDefaultFragment();
+
         BottomNavigationView navigation =findViewById(R.id.nav_view);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         //进行查看手机使用情况权限检查
         checkPhoneAuthority();
+        //设置默认的fragment
+        setDefaultFragment();
     }
     public void checkPhoneAuthority()
     {

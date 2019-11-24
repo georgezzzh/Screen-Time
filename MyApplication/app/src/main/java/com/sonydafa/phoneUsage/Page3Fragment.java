@@ -16,9 +16,8 @@ public class Page3Fragment extends Fragment {
     }
     @Override
     public void onStart() {
-        //TextView textView = getView().findViewById(R.id.page3text1);
+
         Log.i("demo","是第三个视图 notify");
-        Tools.getTimePerHour();
         super.onStart();
     }
 }

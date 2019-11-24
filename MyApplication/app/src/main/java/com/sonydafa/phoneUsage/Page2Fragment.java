@@ -44,9 +44,9 @@ public class Page2Fragment extends Fragment {
         Log.d("demo","是第三个视图 notify");
         PieChart pc=getView().findViewById(R.id.pc);
         List<PieEntry> yVals = new ArrayList<>();
-        List<AppUsage> dataSet = Tools.getDataSet();
-        if(dataSet==null){
-            Log.e("fatal","dataSet is null");
+        List<App>dataList= Tools.getDataSet();
+        if(dataList==null){
+            Log.e("fatal","dataListis null");
             super.onStart();
             return;
         }
@@ -55,8 +55,8 @@ public class Page2Fragment extends Fragment {
         String[] colorsRepo=new String[]{"#33FF00","#9966FF","#9900FF","#CC0066","#FF9900","#999999","#00CCFF"};
         int bigPartitionTime=0;
         int totalTime=0;
-        for(int i=0;i<dataSet.size();i++){
-            AppUsage appUsage = dataSet.get(i);
+        for(int i=0;i<dataList.size();i++){
+            App appUsage =dataList.get(i);
             int time=appUsage.getFrontTime();
             totalTime+=time;
             if(i>5) continue;
@@ -73,7 +73,7 @@ public class Page2Fragment extends Fragment {
                 colors.add(Color.parseColor(color));
         }
         //其余未算完算作其他
-        if(dataSet.size()>6){
+        if(dataList.size()>6){
             Log.i("demo","others is:"+(totalTime-bigPartitionTime));
             yVals.add(new PieEntry(totalTime-bigPartitionTime,"Others"));
             xValues.add("Others");

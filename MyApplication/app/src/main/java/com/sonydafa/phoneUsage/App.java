@@ -1,21 +1,12 @@
 package com.sonydafa.phoneUsage;
 import java.util.List;
 
-public class AppUsage implements Comparable {
+public class App implements Comparable {
     private String packageName;
     private String realName;
     private int frontTime;
-
-    private static List<AppUsage> dataSet;
     //总使用时常
-    public AppUsage(){}
-    public static void setDataSet(List<AppUsage> dataSet) {
-        AppUsage.dataSet = dataSet;
-    }
-    public static List<AppUsage> getDataSet(){
-        return dataSet;
-    }
-    public AppUsage(String packageName, String realName, int frontTime) {
+    public App(String packageName, String realName, int frontTime) {
         this.packageName = packageName;
         this.realName = realName;
         this.frontTime = frontTime;
@@ -23,7 +14,7 @@ public class AppUsage implements Comparable {
 
     @Override
     public String toString() {
-        return "AppUsage{" +
+        return "App{" +
                 "packageName='" + packageName + '\'' +
                 ", realName='" + realName + '\'' +
                 ", frontTime=" + frontTime +
@@ -43,7 +34,7 @@ public class AppUsage implements Comparable {
 
     @Override
     public int compareTo(Object o) {
-        AppUsage other=(AppUsage) o;
+        App other=(App) o;
         return Integer.valueOf(other.frontTime).compareTo(frontTime);
     }
 }
