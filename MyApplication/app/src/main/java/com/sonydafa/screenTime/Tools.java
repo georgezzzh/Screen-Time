@@ -1,4 +1,4 @@
-package com.sonydafa.phoneUsage;
+package com.sonydafa.screenTime;
 
 import android.app.usage.UsageEvents;
 import android.app.usage.UsageStatsManager;

@@ -1,4 +1,4 @@
-package com.sonydafa.phoneUsage;
+package com.sonydafa.screenTime;
 
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;

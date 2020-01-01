@@ -1,4 +1,6 @@
-package com.sonydafa.phoneUsage;
+package com.sonydafa.screenTime;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +20,8 @@ public class Page3Fragment extends Fragment {
     public void onStart() {
 
         Log.i("demo","是第三个视图 notify");
+        // 新建对话框
+
         super.onStart();
     }
 }

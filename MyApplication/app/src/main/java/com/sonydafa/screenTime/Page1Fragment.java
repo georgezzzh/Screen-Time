@@ -1,4 +1,4 @@
-package com.sonydafa.phoneUsage;
+package com.sonydafa.screenTime;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;

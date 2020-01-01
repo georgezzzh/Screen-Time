@@ -1,7 +1,9 @@
-package com.sonydafa.phoneUsage;
+package com.sonydafa.screenTime;
 
+import android.app.AlertDialog;
 import android.app.AppOpsManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -93,6 +95,28 @@ public class MainActivity extends AppCompatActivity {
         //设置默认的fragment
         setDefaultFragment();
     }
+    private void initAlterDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // 设置提示信息
+        builder.setMessage("应用首次启动, 需要在[使用情况访问权限]中允许Screen Time查看使用情况, 否则应用无法执行");
+        // 设置按钮
+        builder.setPositiveButton("开启", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d("start","用户开启设置允许本应用查看应用状态");
+                startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
+            }
+        });
+        builder.setNegativeButton("退出", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d("start","用户未授权，应用退出");
+                System.exit(0);
+            }
+        });
+        // 显示对话框（弹出）
+        builder.show();
+    }
     public void checkPhoneAuthority()
     {
         //判断是否具有权限
@@ -106,8 +130,7 @@ public class MainActivity extends AppCompatActivity {
         else
             granted = (mode == AppOpsManager.MODE_ALLOWED);
         if (!granted) {
-            Log.i("demo","需要应用中心设置查看数据");
-            startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
+            initAlterDialog();
         }
     }
     @Override

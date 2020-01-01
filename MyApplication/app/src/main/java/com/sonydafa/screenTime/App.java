@@ -1,5 +1,4 @@
-package com.sonydafa.phoneUsage;
-import java.util.List;
+package com.sonydafa.screenTime;
 
 public class App implements Comparable {
     private String packageName;

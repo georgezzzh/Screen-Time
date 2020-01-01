@@ -1,4 +1,4 @@
-package com.sonydafa.phoneUsage;
+package com.sonydafa.screenTime;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,7 +46,7 @@ public class Page2Fragment extends Fragment {
         List<PieEntry> yVals = new ArrayList<>();
         List<App>dataList= Tools.getDataSet();
         if(dataList==null){
-            Log.e("fatal","dataListis null");
+            Log.e("fatal","dataList is null");
             super.onStart();
             return;
         }
